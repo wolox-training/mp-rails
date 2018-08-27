@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: wbooks
+  host: localhost
+  pool: 5
+  username: wbooks-api
+  password: wbooks-api
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: wbooks_test
+  host: localhost
+  pool: 5
+  username: wbooks-api
+  password: wbooks-api
