@@ -220,7 +220,7 @@ DEPENDENCIES
   pg (~> 1.0)
   puma (~> 3.11)
   rails (~> 5.2.1)
-  rubocop
+  rubocop (~> 0.58.2)
   sass-rails (~> 5.0)
   selenium-webdriver
   spring
