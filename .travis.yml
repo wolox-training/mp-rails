@@ -1,38 +1,20 @@
 language: ruby
 rvm:
-  - 2.5.1
-
+- 2.5.1
 env:
-  global:
-    - RUBY_GC_MALLOC_LIMIT=90000000
-    - RUBY_GC_HEAP_FREE_SLOTS=200000
-    - SECURITY_SECRET_TOKEN=traviscitraviscitraviscitraviscitravisci
-
+  secure: NAR3Q2U7D7WTUaRGiDmXzcM4X6u+1gyXxb3r1NnmDeAzMbH8pwTRhmW3LJl6Vt4bpkTZRdUSj81s7oh+E2ClR1SxpuNFsMxEF5xeRzu1SP+1vQs8G3McClHYwwVHuTzhffzzYyOjU0YUnpNXFv8UyKU6Tr7WNX886YQU450bHHDUhm+ZNlmva17E8v92aY502t41mnl40WRubThECiF1zw2hEAJu1AUYLVY2uCWwGf6/LExzZiUvs9BTgNmJEFO3ZJ/vaErGIwazlwoURJ4585goqNlrur7rMtc/RKk//6PSXRZg9kxKermjHAMbWzgF9GrpiiVnHF7jEXpSxCZqGKDOQ/lq42yv2GFvk+xoto/OjepqoY9inHkrfO5pDDBlt8Migmlyo0//jBcEz3KacGUgz2/bzY3TSEWy/Sx0yBTFy4SLR8C35DkW5v0K5GH+4o2v4dKACDDMudbW+FUt8nZV30//J+qxXCPKeeZOttFurz/3Kpn3eJw9d0yxMAGTNcpPrfBb3tzP7veOigOAvdru0ode6nRerSeagIqxdxrFveV1/3myUHqojpxHPcWu7TSOApG/ardeJbhB2VHEOnHCUXOKBb5o9tSSNPeRj3oon1eHJct4kIiUEaCD4yLE7WWLgtYEfyWEHq/EhWbM6IirfnudObXr8NCGBmaUORM=
 services:
-  - postgresql
-  - redis-server
-
+- postgresql
+- redis-server
 before_install:
-  #- "echo '--colour' > ~/.rspec"
-  - "echo 'gem: --no-document' > ~/.gemrc"
-  # Solves rainbow issue: https://github.com/sickill/rainbow/issues/48
-  - gem update --system
-
+- 'echo ''gem: --no-document'' > ~/.gemrc'
+- gem update --system
 before_script:
-  - psql -c "CREATE USER \"wbooks-api\" WITH PASSWORD 'wbooks-api';" -U postgres
-  - psql -c "DROP DATABASE IF EXISTS \"wbooks_test\";" -U postgres
-  - psql -c "CREATE DATABASE \"wbooks_test\" ENCODING 'utf8';" -U postgres
-  - bundle exec rake db:migrate
-
+- psql -c "CREATE USER \"wbooks-api\" WITH PASSWORD 'wbooks-api';" -U postgres
+- psql -c "DROP DATABASE IF EXISTS \"wbooks_test\";" -U postgres
+- psql -c "CREATE DATABASE \"wbooks_test\" ENCODING 'utf8';" -U postgres
+- bundle exec rake db:migrate
 script:
-  #- bundle exec rspec spec -fd
-  - bundle exec rubocop app spec -R --format simple
-  #- bundle exec scss-lint app/assets/stylesheets/
-
-#notifications:
-#  email:
-#    recipients:
-#      - rails-bootstrap-dev@wolox.com.ar
-
+- bundle exec rubocop app spec -R --format simple
 cache:
   bundler: true
