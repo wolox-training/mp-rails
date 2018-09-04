@@ -51,6 +51,7 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   # Rubocop
   gem 'rubocop', '~> 0.58.2'
+  gem 'rubocop-rspec', '~> 1.29', '>= 1.29.1'
 end
  
 group :test do
@@ -65,6 +66,8 @@ group :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'shoulda-matchers', '~> 3.1', '>= 3.1.2'
   gem 'factory_bot_rails', '~> 4.11'
+  # Coverage
+  gem 'simplecov', '~> 0.16.1'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

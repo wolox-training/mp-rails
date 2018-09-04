@@ -28,9 +28,9 @@ Metrics/BlockLength:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# rubocop-rspec custom configurations
+#rubocop-rspec custom configurations
 
-#require: rubocop-rspec
+require: rubocop-rspec
 
 Naming/VariableNumber:
   EnforcedStyle: snake_case
