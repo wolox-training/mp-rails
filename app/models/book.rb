@@ -3,4 +3,5 @@ class Book < ApplicationRecord
   # Relations
   has_many :rents, dependent: :destroy
   has_many :users, through: :rents
+  include Filterable
 end

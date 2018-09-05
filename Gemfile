@@ -78,3 +78,9 @@ gem "pg", "~> 1.0"
 gem "devise_token_auth", "~> 0.2.0"
 
 gem "devise", "~> 4.4"
+
+gem 'active_model_serializers', '~> 0.10.7'
+
+gem 'wor-paginate', :git => 'https://github.com/leamotta/wor-paginate', :branch => 'rails-5.2'
+
+gem 'versionist', '~> 1.7'
