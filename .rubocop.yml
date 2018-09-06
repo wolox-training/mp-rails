@@ -11,6 +11,7 @@ AllCops:
     - docs/**/*
     - config/**/*
     - bin/**/*
+    - spec/support/shared_contexts/authenticated_user.rb
 
 Documentation:
   Enabled: false

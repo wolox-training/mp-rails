@@ -10,4 +10,10 @@ class ApplicationController < ActionController::Base
   end
 
   protect_from_forgery with: :null_session
+
+  rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
+
+  def handle_record_not_found
+    render(json: { error: 'Nothing found' }, status: :not_found)
+  end
 end
