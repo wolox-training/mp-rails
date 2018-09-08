@@ -10,4 +10,5 @@ class Rent < ApplicationRecord
   def to_cannot_be_lesser_than_from
     errors.add(:to, "can't be lesser than from") if to < from
   end
+  include Filterable
 end
