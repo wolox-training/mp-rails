@@ -82,3 +82,5 @@ gem 'active_model_serializers', '~> 0.10.7'
 gem 'wor-paginate', :git => 'https://github.com/leamotta/wor-paginate', :branch => 'rails-5.2'
 
 gem 'versionist', '~> 1.7'
+
+gem 'sidekiq', '~> 5.2', '>= 5.2.1'

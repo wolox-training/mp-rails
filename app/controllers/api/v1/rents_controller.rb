@@ -10,6 +10,8 @@ module Api
       def create
         rent = Rent.new(permitted_params)
         if rent.save
+          serialized_rent = RentSerializer.new(rent)
+          RentsMailer.new_rent_notification(serialized_rent).deliver_now
           render json: rent
         else
           render json: rent.errors, status: :unprocessable_entity

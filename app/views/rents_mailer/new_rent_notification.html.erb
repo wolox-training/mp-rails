@@ -1,0 +1,13 @@
+<h1>Rents#new_rent_notification</h1>
+
+<p>
+  <%= @rent.object.user.first_name %>
+<ul>
+<li>Creation date: <%= @rent.object.created_at %></li>
+<li>Book Title: <%= @rent.object.book.title %></li>
+<li>Book Author: <%= @rent.object.book.author %></li>
+<li>Book Genre: <%= @rent.object.book.genre %></li>
+<li>From: <%= @rent.object.from %></li>
+<li>To: <%= @rent.object.to %></li>
+</ul>
+</p>
