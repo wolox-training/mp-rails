@@ -67,10 +67,6 @@ describe Api::V1::RentsController do
   end
 
   describe 'POST #create' do
-    # after do
-    #   clear_enqueued_jobs
-    # end
-
     context 'with valid attributes' do
       let(:book) { create(:book) }
       let(:user) { create(:user) }
