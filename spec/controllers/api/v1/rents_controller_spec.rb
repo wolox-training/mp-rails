@@ -67,6 +67,10 @@ describe Api::V1::RentsController do
   end
 
   describe 'POST #create' do
+    # after do
+    #   clear_enqueued_jobs
+    # end
+
     context 'with valid attributes' do
       let(:book) { create(:book) }
       let(:user) { create(:user) }
@@ -81,6 +85,10 @@ describe Api::V1::RentsController do
 
       it 'creates a new rent' do
         expect { http_request }.to change(Rent, :count).by(1)
+      end
+
+      it 'enqueues notification email' do
+        expect { http_request }.to change { Sidekiq::Worker.jobs.size }.by(1)
       end
 
       it 'is properly serialized' do
