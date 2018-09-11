@@ -1,5 +1,7 @@
 class Rent < ApplicationRecord
   validates :book, :user, :from, :to, presence: true
+  include Filterable
+
   belongs_to :book
   belongs_to :user
   validate :to_cannot_be_lesser_than_from,

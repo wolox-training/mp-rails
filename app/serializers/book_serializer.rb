@@ -1,5 +1,5 @@
 class BookSerializer < ActiveModel::Serializer
-  attributes :id, :author, :title, :genre, :publisher, :year, :image, :created_at, :updated_at
+  attributes :id, :author, :title, :genre, :publisher, :year, :image
 
   def image
     { url: object.image }
