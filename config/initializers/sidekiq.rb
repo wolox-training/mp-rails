@@ -1,8 +1,6 @@
 # config/initializers/sidekiq.rb
 
 Sidekiq.configure_server do |config|
-  puts '@@@CONFIG'
-  puts config
   config.redis = { url: Rails.application.credentials[Rails.env.to_sym][:sidekiq][:url], namespace: "wbooks_#{Rails.env}" }
 end
 
