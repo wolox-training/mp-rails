@@ -83,6 +83,10 @@ describe Api::V1::RentsController do
         expect { http_request }.to change(Rent, :count).by(1)
       end
 
+      it 'enqueues notification email' do
+        expect { http_request }.to change { Sidekiq::Worker.jobs.size }.by(1)
+      end
+
       it 'is properly serialized' do
         http_request
         expect(JSON.parse(response.body.to_json)).to include 'id'

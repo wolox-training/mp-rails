@@ -10,6 +10,7 @@ module Api
       def create
         rent = Rent.new(permitted_params)
         if rent.save
+          RentsMailer.new_rent_notification(rent.id).deliver_later
           render json: rent
         else
           render json: rent.errors, status: :unprocessable_entity
