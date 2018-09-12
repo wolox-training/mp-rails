@@ -1,0 +1,10 @@
+es:
+  rents_mailer:
+    new_rent_notification:
+      subject: "Ud. rentó un libro"
+      user: "Usuario: %{last_name}, %{first_name}"
+      book_title: "Título del libro: %{title}"
+      book_author: "Autor del libro: %{author}"
+      book_genre: "Género del libro: %{genre}"
+      from_date: "Desde: %{from}"
+      to_date: "Hasta: %{to}"

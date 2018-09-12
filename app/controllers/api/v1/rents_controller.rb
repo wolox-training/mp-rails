@@ -20,6 +20,7 @@ module Api
       private
 
       def permitted_params
+        params[:user_id] = current_api_v1_user.id
         params.require(:rent).permit(:book_id, :user_id, :from, :to)
       end
     end

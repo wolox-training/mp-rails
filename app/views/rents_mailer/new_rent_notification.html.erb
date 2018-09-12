@@ -1,12 +1,12 @@
 <h1>Rents#new_rent_notification</h1>
 
 <p>
-  User: <%= @rent.user.first_name %>, <%= @rent.user.last_name %>
+  <%= t('.user', first_name: @rent.user.first_name, last_name: @rent.user.last_name) %>
 <ul>
-<li>Book Title: <%= @rent.book.title %></li>
-<li>Book Author: <%= @rent.book.author %></li>
-<li>Book Genre: <%= @rent.book.genre %></li>
-<li>From: <%= @rent.from %></li>
-<li>To: <%= @rent.to %></li>
+<li> <%=  t('.book_title', title: @rent.book.title)  %></li>
+<li> <%=  t('.book_author', author: @rent.book.author) %></li>
+<li> <%=  t('.book_genre', genre: @rent.book.genre) %></li>
+<li> <%=  t('.from_date', from: @rent.from) %></li>
+<li> <%=  t('.to_date', to: @rent.to) %></li>
 </ul>
 </p>
