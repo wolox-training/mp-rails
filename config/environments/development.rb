@@ -41,9 +41,9 @@ Rails.application.configure do
     :authentication => :plain,
     :address => "smtp.mailgun.org",
     :port => 587,
-    :domain => Rails.application.credentials.email[:domain],
-    :user_name => Rails.application.credentials.email[:user_name],
-    :password => Rails.application.credentials.email[:password],
+    :domain => Rails.application.credentials.development[:email][:domain],
+    :user_name => Rails.application.credentials.development[:email][:user_name],
+    :password => Rails.application.credentials.development[:email][:password],
   }
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -70,4 +70,5 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.active_job.queue_adapter = :sidekiq
+
 end
