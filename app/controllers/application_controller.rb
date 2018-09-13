@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-  before_action :set_default_locale
+  before_action :set_locale
 
   def configure_permitted_parameters
     params = %i[first_name last_name email password password_confirmation]
@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def set_default_locale
+  def set_locale
     I18n.locale = api_v1_user_signed_in? ? current_api_v1_user.locale.to_sym : I18n.default_locale
   end
 end
