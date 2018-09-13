@@ -30,4 +30,12 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  rents_mailer:
+    new_rent_notification:
+      subject: "You just rented a book"
+      user: "User: %{last_name}, %{first_name}"
+      book_title: "Book Title: %{title}"
+      book_author: "Book Author: %{author}"
+      book_genre: "Book genre: %{genre}"
+      from_date: "From: %{from}"
+      to_date: "To: %{to}"

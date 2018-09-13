@@ -6,6 +6,6 @@ class RentsMailer < ApplicationMailer
   #
   def new_rent_notification(rent_id)
     @rent = Rent.find(rent_id)
-    mail to: @rent.user.email, from: 'no-reply@wolox.cl', subject: 'You just rented a book'
+    mail to: @rent.user.email, from: 'no-reply@wolox.cl'
   end
 end
