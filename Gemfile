@@ -86,3 +86,5 @@ gem 'versionist', '~> 1.7'
 gem 'sidekiq', '~> 5.2', '>= 5.2.1'
 
 gem 'redis-namespace', '~> 1.6'
+
+gem 'pundit', '~> 2.0'

@@ -4,7 +4,14 @@ module Api
       before_action :authenticate_api_v1_user!, only: %i[index create]
 
       def index
-        render_paginated Rent.includes(:book, :user).filter(params.slice(:user_id, :book_id))
+        rents = Rent.includes(:book, :user).filter(params.slice(:user_id, :book_id))
+        authorized_rents = RentPolicy::Scope.new(current_api_v1_user, rents).resolve
+        render_paginated authorized_rents
+      end
+
+      def show
+        rent = RentPolicy::Scope.new(current_api_v1_user, Rent).resolve
+        render json: rent.find(params[:id])
       end
 
       def create

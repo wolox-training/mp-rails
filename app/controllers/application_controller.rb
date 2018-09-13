@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
   include Wor::Paginate
-
+  include Pundit
+  
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   before_action :set_locale

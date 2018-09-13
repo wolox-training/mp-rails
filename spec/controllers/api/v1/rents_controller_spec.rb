@@ -24,7 +24,7 @@ describe Api::V1::RentsController do
     end
 
     context 'when receiving book_id filter' do
-      let!(:rents_book) { create_list(:rent, 3, book: create(:book, id: 1)) }
+      let!(:rents_book) { create_list(:rent, 3, book: create(:book, id: 1), user: user) }
 
       let!(:rents) { create_list(:rent, 3) } # rubocop:disable RSpec/LetSetup
 
@@ -45,12 +45,12 @@ describe Api::V1::RentsController do
     end
 
     context 'when receiving user_id filter' do
-      let!(:rents_user) { create_list(:rent, 3, user: create(:user, id: 1)) }
+      let!(:rents_user) { create_list(:rent, 3, user: user) }
 
       let!(:rents) { create_list(:rent, 3) } # rubocop:disable RSpec/LetSetup
 
       before do
-        get :index, params: { user_id: 1 }
+        get :index, params: { user_id: user.id }
       end
 
       it 'responds with the rents json' do
