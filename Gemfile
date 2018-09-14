@@ -88,3 +88,6 @@ gem 'sidekiq', '~> 5.2', '>= 5.2.1'
 gem 'redis-namespace', '~> 1.6'
 
 gem 'pundit', '~> 2.0'
+gem 'httparty', '~> 0.16.2'
+
+gem 'library_stdnums', '~> 1.6'
