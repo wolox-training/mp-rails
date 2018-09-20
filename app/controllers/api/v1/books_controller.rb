@@ -1,6 +1,5 @@
 module Api
   module V1
-    include OpenLibraryService
     class BooksController < ApplicationController
       before_action :authenticate_api_v1_user!, only: %i[index show]
 
