@@ -145,7 +145,7 @@ describe Api::V1::BooksController do
 
     context 'when openlibrary responds with an error' do
       let(:expected_response) do
-        { 'error': 'Error fetching book info from OpenLibrary.' }
+        { 'errors': 'Error fetching book info from OpenLibrary.' }
       end
 
       before do
