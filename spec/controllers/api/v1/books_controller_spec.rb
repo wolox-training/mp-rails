@@ -142,5 +142,31 @@ describe Api::V1::BooksController do
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
+
+    context 'when openlibrary responds with an error' do
+      let(:expected_response) do
+        { 'error': 'Error fetching book info from OpenLibrary.' }
+      end
+
+      before do
+        body = {}
+        stub_request(:get, 'https://openlibrary.org/api/books?bibkeys=ISBN:9780876855577&format=json&jscmd=data')
+          .to_return(
+            headers: { 'Content-Type': 'application/json' },
+            body: body.to_json,
+            status: 500
+          )
+
+        get :fetch_book_by_isbn, params: { isbn: '9780876855577' }
+      end
+
+      it 'responds with the book json' do
+        expect(response.body).to eq expected_response.to_json
+      end
+
+      it 'responds with 500 status' do
+        expect(response).to have_http_status(:error)
+      end
+    end
   end
 end

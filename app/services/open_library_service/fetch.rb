@@ -8,7 +8,7 @@ module OpenLibraryService
       @options[:query][:bibkeys] = "ISBN:#{isbn}"
       response = get('/books', @options)
       return response if response.code == 200
-      raise BookInfoFetchError, response: { http_code: response.code }
+      raise OpenLibraryServiceErrors::BookInfoFetchError, response: {}
     end
   end
 end
