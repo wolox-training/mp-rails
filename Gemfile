@@ -91,3 +91,5 @@ gem 'pundit', '~> 2.0'
 gem 'httparty', '~> 0.16.2'
 
 gem 'library_stdnums', '~> 1.6'
+
+gem 'webmock', '~> 3.4', '>= 3.4.2'
