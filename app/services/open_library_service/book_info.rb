@@ -15,11 +15,7 @@ module OpenLibraryService
     end
 
     def self.get_authors_array(authors)
-      authors_names = []
-      authors.each do |author|
-        authors_names << author['name']
-      end
-      authors_names
+      authors.map { |author| author['name'] }
     end
   end
 end
