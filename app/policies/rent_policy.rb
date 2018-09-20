@@ -1,22 +1,35 @@
+# class RentPolicy
+#   class Scope
+#     attr_reader :user, :scope
+
+#     def initialize(user, scope)
+#       @user = user
+#       @scope = scope
+#     end
+
+#     def resolve
+#       scope.where(user: user)
+#     end
+
+#     def show?
+#       true
+#     end
+
+#     def index?
+#       true
+#     end
+#   end
+# end
+
 class RentPolicy
-  class Scope
-    attr_reader :user, :scope
+  attr_reader :user, :record
 
-    def initialize(user, scope)
-      @user = user
-      @scope = scope
-    end
+  def initialize(user, record)
+    @user = user
+    @record = record
+  end
 
-    def resolve
-      scope.where(user: user)
-    end
-
-    def show?
-      true
-    end
-
-    def index?
-      true
-    end
+  def show?
+    user.id == record.user_id
   end
 end

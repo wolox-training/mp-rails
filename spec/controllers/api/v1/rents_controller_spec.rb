@@ -66,6 +66,55 @@ describe Api::V1::RentsController do
     end
   end
 
+  describe 'GET #show' do
+    context 'when fetching a rent' do
+      let!(:rent) { create(:rent, user: user) }
+
+      before do
+        get :show, params: { id: rent.id }
+      end
+
+      it 'responds with the rent json' do
+        expect(response.body).to eq RentSerializer.new(
+          rent, root: false
+        ).to_json
+      end
+
+      it 'responds with 200 status' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when fetching a rent with invalid id' do
+      let(:rent) { create(:rent) }
+
+      before do
+        get :show, params: { id: 2 }
+      end
+
+      it 'responds with error' do
+        expected = '{"error":"Nothing found"}'
+        expect(response.body).to eq expected
+      end
+
+      it 'responds with 404 status' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'when fetching another user rent' do
+      let!(:rent) { create(:rent, id: 1) } # rubocop:disable RSpec/LetSetup
+
+      before do
+        get :show, params: { id: 1 }
+      end
+
+      it 'responds with 401 status' do
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+  end
+
   describe 'POST #create' do
     context 'with valid attributes' do
       let(:book) { create(:book) }

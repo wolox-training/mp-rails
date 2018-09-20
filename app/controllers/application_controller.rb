@@ -7,6 +7,8 @@ class ApplicationController < ActionController::Base
 
   before_action :set_locale
 
+  alias current_user current_api_v1_user
+
   def configure_permitted_parameters
     params = %i[first_name last_name email password password_confirmation]
     devise_parameter_sanitizer.permit(:sign_up, keys: params)
@@ -16,8 +18,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::RecordNotFound, with: :handle_record_not_found
 
+  rescue_from Pundit::NotAuthorizedError, with: :handle_unauthorized_record
+
   def handle_record_not_found
     render(json: { error: 'Nothing found' }, status: :not_found)
+  end
+
+  def handle_unauthorized_record
+    render(json: { error: 'Unauthorized' }, status: :unauthorized)
   end
 
   private
