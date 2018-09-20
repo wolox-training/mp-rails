@@ -1,4 +1,3 @@
-require 'library_stdnums'
 module OpenLibraryService
   module ValidIsbn
     include StdNum
