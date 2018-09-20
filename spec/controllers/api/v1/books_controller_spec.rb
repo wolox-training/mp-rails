@@ -126,7 +126,7 @@ describe Api::V1::BooksController do
     context 'when using an invalid isbn' do
       let(:expected_response) do
         {
-          errors: ['Invalid ISBN code']
+          errors: 'Invalid ISBN format.'
         }
       end
 
