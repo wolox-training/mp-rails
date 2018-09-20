@@ -1,8 +1,8 @@
 require 'httparty'
 require_relative 'open_library_service_errors/book_info_fetch_error'
-require_relative 'open_library_service_errors/book_not_found_error'
 module OpenLibraryService
   class Fetch
+    class_attribute :http_client
     include HTTParty
     include OpenLibraryServiceErrors
     base_uri 'https://openlibrary.org/api'
