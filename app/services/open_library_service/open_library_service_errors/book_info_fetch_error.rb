@@ -6,7 +6,7 @@ module OpenLibraryService
       end
 
       def message
-        { error: 'Error fetching book info from OpenLibrary.' }
+        { errors: 'Error fetching book info from OpenLibrary.' }
       end
     end
   end
