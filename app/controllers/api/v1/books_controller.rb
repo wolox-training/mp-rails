@@ -14,8 +14,9 @@ module Api
       end
 
       def fetch_book_by_isbn
-        puts params[:isbn]
         render json: OpenLibraryService::Main.book_info(params[:isbn])
+      rescue OpenLibraryService::OpenLibraryServiceErrors::InvalidISBN
+        render json: { errors: ['Invalid ISBN code'] }, status: :unprocessable_entity
       end
     end
   end
