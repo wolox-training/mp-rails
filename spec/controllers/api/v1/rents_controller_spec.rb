@@ -24,7 +24,7 @@ describe Api::V1::RentsController do
     end
 
     context 'when receiving book_id filter' do
-      let!(:rents_book) { create_list(:rent, 3, book: create(:book, id: 1)) }
+      let!(:rents_book) { create_list(:rent, 3, book: create(:book, id: 1), user: user) }
 
       let!(:rents) { create_list(:rent, 3) } # rubocop:disable RSpec/LetSetup
 
@@ -45,12 +45,12 @@ describe Api::V1::RentsController do
     end
 
     context 'when receiving user_id filter' do
-      let!(:rents_user) { create_list(:rent, 3, user: create(:user, id: 1)) }
+      let!(:rents_user) { create_list(:rent, 3, user: user) }
 
       let!(:rents) { create_list(:rent, 3) } # rubocop:disable RSpec/LetSetup
 
       before do
-        get :index, params: { user_id: 1 }
+        get :index, params: { user_id: user.id }
       end
 
       it 'responds with the rents json' do
@@ -62,6 +62,55 @@ describe Api::V1::RentsController do
 
       it 'responds with 200 status' do
         expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
+  describe 'GET #show' do
+    context 'when fetching a rent' do
+      let!(:rent) { create(:rent, user: user) }
+
+      before do
+        get :show, params: { id: rent.id }
+      end
+
+      it 'responds with the rent json' do
+        expect(response.body).to eq RentSerializer.new(
+          rent, root: false
+        ).to_json
+      end
+
+      it 'responds with 200 status' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when fetching a rent with invalid id' do
+      let(:rent) { create(:rent) }
+
+      before do
+        get :show, params: { id: 2 }
+      end
+
+      it 'responds with error' do
+        expected = '{"error":"Nothing found"}'
+        expect(response.body).to eq expected
+      end
+
+      it 'responds with 404 status' do
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context 'when fetching another user rent' do
+      let!(:rent) { create(:rent, id: 1) } # rubocop:disable RSpec/LetSetup
+
+      before do
+        get :show, params: { id: 1 }
+      end
+
+      it 'responds with 401 status' do
+        expect(response).to have_http_status(:unauthorized)
       end
     end
   end
