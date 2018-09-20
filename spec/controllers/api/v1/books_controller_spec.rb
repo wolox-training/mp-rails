@@ -80,4 +80,93 @@ describe Api::V1::BooksController do
       end
     end
   end
+
+  describe 'GET #fetch_book_by_isbn' do
+    context 'when using a valid isbn' do
+      let(:expected_response) do
+        {
+          'isbn': '9780876855577',
+          'title': 'Ham on rye',
+          'subtitle': 'a novel',
+          'number_of_pages': 283,
+          'authors': ['Charles Bukowski']
+        }
+      end
+
+      before do
+        body = {
+          'ISBN:9780876855577': {
+            'subtitle': 'a novel',
+            'title': 'Ham on rye',
+            'number_of_pages': 283,
+            'authors': [{
+              'url': 'https://openlibrary.org/authors/OL31084A/Charles_Bukowski',
+              'name': 'Charles Bukowski'
+            }]
+          }
+        }
+        stub_request(:get, 'https://openlibrary.org/api/books?bibkeys=ISBN:9780876855577&format=json&jscmd=data')
+          .to_return(
+            headers: { 'Content-Type': 'application/json' },
+            body: body.to_json
+          )
+
+        get :fetch_book_by_isbn, params: { isbn: '9780876855577' }
+      end
+
+      it 'responds with the book json' do
+        expect(response.body).to eq expected_response.to_json
+      end
+
+      it 'responds with 200 status' do
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    context 'when using an invalid isbn' do
+      let(:expected_response) do
+        {
+          errors: 'Invalid ISBN format.'
+        }
+      end
+
+      before do
+        get :fetch_book_by_isbn, params: { isbn: '123' }
+      end
+
+      it 'responds with error message' do
+        expect(response.body).to eq expected_response.to_json
+      end
+
+      it 'responds with 422 status' do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'when openlibrary responds with an error' do
+      let(:expected_response) do
+        { 'errors': 'Error fetching book info from OpenLibrary.' }
+      end
+
+      before do
+        body = {}
+        stub_request(:get, 'https://openlibrary.org/api/books?bibkeys=ISBN:9780876855577&format=json&jscmd=data')
+          .to_return(
+            headers: { 'Content-Type': 'application/json' },
+            body: body.to_json,
+            status: 500
+          )
+
+        get :fetch_book_by_isbn, params: { isbn: '9780876855577' }
+      end
+
+      it 'responds with the book json' do
+        expect(response.body).to eq expected_response.to_json
+      end
+
+      it 'responds with 500 status' do
+        expect(response).to have_http_status(:error)
+      end
+    end
+  end
 end
